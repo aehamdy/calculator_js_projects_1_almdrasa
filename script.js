@@ -108,3 +108,37 @@ const keyElementsHandler = (element) => {
 };
 
 keyElements.forEach(keyElementsHandler);
+
+// Use keyboard as input source
+
+const availableNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+const availableOperations = ["+", "-", "*", "/"];
+const availableKeys = [...availableNumbers, ...availableOperations, "Enter", "Backspace", "c"];
+
+window.addEventListener("keydown", (event) => {
+    keyboardWithHover(event.key);
+});
+
+const keyboardWithoutHover = (key) => {
+    if (availableNumbers.includes(key)) {
+        numberButtonHandler(key);
+    } else if (availableOperations.includes(key)) {
+        operationButtonHandler(key);
+    } else if (key === "Backspace") {
+        deleteButtonHandler();
+    } else if (key === "Enter") {
+        executeOperation();
+    } else if (key === "c") {
+        resetButtonHandler();
+    }
+}
+
+const keyboardWithHover = (key) => {
+    if (availableKeys.includes(key)) {
+        const elem = document.querySelector(`[data-value="${key}"]`);
+
+        elem.classList.add("hover");
+        elem.click();
+        setTimeout(() => elem.classList.remove("hover"), 100);
+    }
+}
