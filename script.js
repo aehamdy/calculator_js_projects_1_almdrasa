@@ -29,9 +29,26 @@ const numberButtonHandler = (value) => {
     updateScreen(currentNumber);
 };
 
+const resetButtonHandler = () => {
+    storedNumber = "";
+    currentNumber = "";
+    operation = "";
+    updateScreen(currentNumber);
+}
+
 const keyElementsHandler = (element) => {
     element.addEventListener("click", () => {
-        element.dataset.type === "number" && numberButtonHandler(element.dataset.value);
+        const type = element.dataset.type;
+
+        if (type === "number") {
+            numberButtonHandler(element.dataset.value);
+        } else if (type === "operation") {
+            switch (element.dataset.value) {
+                case "c":
+                    resetButtonHandler();
+                    break
+            }
+        }
     });
 };
 
